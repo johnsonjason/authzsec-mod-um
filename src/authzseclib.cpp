@@ -1,13 +1,16 @@
+// authzseclib.cpp : Defines the exported functions for the DLL application.
+//
+
 #include "stdafx.h"
 #include "authzseclib.h"
 
-auth_zone::auth_zone(std::wstring security_zone, security_policy zone_rules)
+auth_zone::auth_zone(const std::wstring& security_zone, security_policy zone_rules)
 {
 	this->name = security_zone;
 	this->zone_accessibility = zone_rules;
 }
 
-void auth_zone::add_location(std::wstring location, bool accessibility)
+void auth_zone::add_location(const std::wstring& location, bool accessibility)
 {
 	PACL access_control_list_old = NULL;
 	PACL access_control_list = NULL;
@@ -51,7 +54,7 @@ static int sqlite_exec_callback(void* reserved, int argc, char** argv, char** az
 	return 0;
 }
 
-static std::vector<std::string> enumerate_set_controls(sqlite3* database, std::wstring object_name, std::vector<std::pair<std::wstring, DWORD>> explicit_table)
+static std::vector<std::string> enumerate_set_controls(sqlite3* database, const std::wstring& object_name, const std::vector<std::pair<std::wstring, DWORD>>& explicit_table)
 {
 	std::vector<std::string> queries;
 	for (auto entry : explicit_table)
@@ -62,7 +65,7 @@ static std::vector<std::string> enumerate_set_controls(sqlite3* database, std::w
 	return queries;
 }
 
-void auth_zone::database_store_permission_set(std::vector<std::pair<std::wstring, DWORD>> explicit_table)
+void auth_zone::database_store_permission_set(const std::vector<std::pair<std::wstring, DWORD>>& explicit_table)
 {
 	sqlite3* database;
 	char* error_msg = NULL;
@@ -81,7 +84,7 @@ void auth_zone::database_store_permission_set(std::vector<std::pair<std::wstring
 	result = sqlite3_close(database);
 }
 
-void auth_zone::save_permissions(std::wstring location, PACL access_control_list)
+void auth_zone::save_permissions(const std::wstring& location, PACL access_control_list)
 {
 	if (std::find(this->zone_locations.begin(), this->zone_locations.end(), location) == this->zone_locations.end())
 	{
@@ -99,7 +102,7 @@ void auth_zone::save_permissions(std::wstring location, PACL access_control_list
 	}
 }
 
-void auth_zone::set_control_attribute(std::wstring location, PACL access_control_list, PACL access_control_list_old, bool accessibility)
+void auth_zone::set_control_attribute(const std::wstring& location, PACL access_control_list, PACL access_control_list_old, bool accessibility)
 {
 	EXPLICIT_ACCESSW ea = { 0 };
 	ea.Trustee.TrusteeForm = TRUSTEE_IS_NAME;
