@@ -35,9 +35,9 @@ class auth_zone
 public:
 	std::wstring name;
 
-	auth_zone(std::wstring security_zone, security_policy zone_rules);
-	void add_location(std::wstring location, bool accessibility);
-	void free_location(std::wstring location);
+	auth_zone(const std::wstring& security_zone, security_policy zone_rules);
+	void add_location(const std::wstring& location, bool accessibility);
+	void free_location(const std::wstring& location);
 
 private:
 	std::vector<std::wstring> zone_locations;
@@ -45,10 +45,10 @@ private:
 	security_policy zone_accessibility;
 	trustee_member member;
 
-	void set_control_attribute(std::wstring location, PACL access_control_list, PACL access_control_list_old, bool accessibility);
+	void set_control_attribute(const std::wstring& location, PACL access_control_list, PACL access_control_list_old, bool accessibility);
 	inline std::vector<std::pair<std::wstring, DWORD>> enumerate_explicit_controls(EXPLICIT_ACCESSW* entries, ULONG entry_count);
-	void database_store_permission_set(std::vector<std::pair<std::wstring, DWORD>> explicit_table);
-	void save_permissions(std::wstring location, PACL access_control_list);
+	void database_store_permission_set(const std::vector<std::pair<std::wstring, DWORD>>& explicit_table);
+	void save_permissions(const std::wstring& location, PACL access_control_list);
 };
 
 #endif
