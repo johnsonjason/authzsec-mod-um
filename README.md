@@ -1,0 +1,1 @@
+This is a project serving as a supplementary security module as a user-mode interface to a kernel-mode service using Windows ACLs and (TBA) AppContainer technology and other forms of object isolation.
