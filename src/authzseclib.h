@@ -1,4 +1,3 @@
-#pragma once
 #ifndef AUTHZ_SECLIB
 #define AUTHZ_SECLIB
 #include <AclAPI.h>
