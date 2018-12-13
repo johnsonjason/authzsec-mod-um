@@ -7,3 +7,4 @@ TBA:
 - Registry isolation
 - Relational database for permission storage
 - Integrity checksums using RAM database
+- Etc...
