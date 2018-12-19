@@ -190,7 +190,6 @@ static std::vector<std::string> enumerate_set_controls(const std::string& objnam
 			"'(Access, Location, SIDString, ACEIndex, Permission) " \
 			"VALUES ('" + std::get<0>(entry) + "', '" + location + "', '" + sid_string + "', " + std::to_string(std::get<3>(entry)) + ", '" + permission + "'" + ")");
 	}
-
 	return queries;
 }
 
