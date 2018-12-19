@@ -64,7 +64,6 @@ static DWORD reverse_permission_mask_deny(security_policy policy)
 	case security_policy::execute:
 		return GENERIC_WRITE;
 	}
-
 	return NULL;
 }
 
@@ -104,7 +103,6 @@ bool auth_zone::lease_access(const std::wstring& location, PACL acl)
 				return false;
 			}
 		}
-
 		else if (ace->Header.AceType == ACCESS_DENIED_ACE_TYPE)
 		{
 			SID* sid = reinterpret_cast<SID*>(&reinterpret_cast<ACCESS_GENERIC_ACE*>(ace)->SidStart);
@@ -162,13 +160,16 @@ static int sqlite_exec_callback(void* reserved, int argc, char** argv, char** az
 static std::string get_mask(DWORD mask)
 {
 	std::string permission;
-	if (FILE_READ_DATA & mask) {
+	if (FILE_READ_DATA & mask) 
+	{
 		permission += "READ_";
 	}
-	if (FILE_WRITE_DATA & mask) {
+	if (FILE_WRITE_DATA & mask) 
+	{
 		permission += "WRITE_";
 	}
-	if (FILE_EXECUTE & mask) {
+	if (FILE_EXECUTE & mask) 
+	{
 		permission += "EXECUTE_";
 	}
 	return permission;
